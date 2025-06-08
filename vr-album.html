@@ -5,6 +5,8 @@
     <title>Bijou Nicole VR Album Experience</title>
     <meta name="description" content="VR Album Room with A-Frame">
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <!-- Particle system for sparkles -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-particle-system-component@1.0.1/dist/aframe-particle-system-component.min.js"></script>
     <style>
       body { margin: 0; }
       #overlay {
@@ -126,55 +128,117 @@
                 onclick="showTrackRoom('Drama Queen (And Proud)', 'room3');"></a-entity>
       <a-text value="Drama Queen\n(And Proud)" align="center" position="3 3.1 -4" color="#FBEEDB" width="3"></a-text>
 
-      <!-- Room 1: No Warnings, Just Arrival (lyrics-inspired, ring is clickable) -->
+      <!-- Room 1: No Warnings, Just Arrival (BEAUTIFUL!) -->
       <a-entity id="room1" visible="false">
-        <a-sky color="#19121b"></a-sky>
-        <a-light type="spot" position="0 10 0" intensity="2" color="#FFD9A0" angle="45"></a-light>
-        <a-light type="ambient" color="#6a4c93" intensity="0.7"></a-light>
-        <!-- Glowing arrival platform (now clickable to return to lobby) -->
-        <a-ring position="0 0.1 -3" radius-inner="0.95" radius-outer="1.2" color="#FFD9A0" opacity="0.85"
+        <!-- Animated dawn-like sky and ambient light -->
+        <a-sky color="#1a1024"></a-sky>
+        <a-entity light="type: directional; color: #FFD9A0; intensity: 1.1; target: 0 1 -3"
+                  position="0 10 5"
+                  animation="property: light.intensity; from:0.5; to:1.5; dir:alternate; dur:3600; loop:true"></a-entity>
+        <a-entity light="type: ambient; color: #6a4c93; intensity: 0.5"></a-entity>
+
+        <!-- Glowing, pulsing arrival platform (clickable to return) -->
+        <a-ring position="0 0.05 -3"
+                radius-inner="1" radius-outer="1.6"
+                color="#FFD9A0"
+                material="opacity:0.33; side:double; transparent:true"
                 class="clickable"
                 onclick="hideTrackRoom('room1')"
-                animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1200"></a-ring>
-        <!-- Mirror object, symbolizing reflection -->
-        <a-cylinder position="2 1.2 -3" radius="0.5" height="1" color="#b2b2b2" opacity="0.55" rotation="0 30 0"></a-cylinder>
-        <a-text value="mirror" align="center" color="#b2b2b2" width="2" position="2 2.1 -3" font="dejavu"></a-text>
-        <!-- Floating lyric lines, revealed as you look around -->
-        <a-text value="No warnings." align="center" color="#FFD9A0" width="5" position="0 3.2 -3"
-                animation="property: opacity; from:0; to:1; delay:600; dur:800"></a-text>
-        <a-text value="No countdown." align="center" color="#FFD9A0" width="5" position="-2.2 2.8 -4"
-                animation="property: opacity; from:0; to:1; delay:1400; dur:800"></a-text>
-        <a-text value="No soft opening scene." align="center" color="#FFD9A0" width="5" position="2.2 2.4 -4"
-                animation="property: opacity; from:0; to:1; delay:2000; dur:800"></a-text>
-        <a-text value="I enter — as I am." align="center" color="#E86ED0" width="5" position="0 2.2 -2"
-                animation="property: opacity; from:0; to:1; delay:2600; dur:1000"></a-text>
-        <a-text value="As I’ve always been," align="center" color="#FFD9A0" width="5" position="0 1.7 -3"
-                animation="property: opacity; from:0; to:1; delay:3400; dur:1000"></a-text>
-        <a-text value="beneath the edits, beneath the silence," align="center" color="#FFD9A0" width="4" position="0 1.3 -4"
-                animation="property: opacity; from:0; to:1; delay:4200; dur:1000"></a-text>
-        <a-text value="beneath the versions you felt comfortable with." align="center" color="#FFD9A0" width="4" position="0 1.0 -4.5"
-                animation="property: opacity; from:0; to:1; delay:5000; dur:1000"></a-text>
-        <a-text value="They called me too late, too much, too loud, too soon." align="center" color="#FFD9A0" width="5" position="-2 0.7 -4"
-                animation="property: opacity; from:0; to:1; delay:5800; dur:1200"></a-text>
-        <a-text value="But I was never too anything." align="center" color="#FFD9A0" width="4" position="2 0.4 -4"
-                animation="property: opacity; from:0; to:1; delay:6600; dur:1200"></a-text>
-        <a-text value="You were just too small to receive me." align="center" color="#FFD9A0" width="4" position="0 0.1 -3.5"
-                animation="property: opacity; from:0; to:1; delay:7400; dur:1200"></a-text>
-        <a-text value="This voice — it was never made to whisper." align="center" color="#E86ED0" width="4" position="-2 0.2 -2.5"
-                animation="property: opacity; from:0; to:1; delay:8200; dur:1200"></a-text>
-        <a-text value="This walk — was never built to follow." align="center" color="#E86ED0" width="4" position="2 0.2 -2.5"
-                animation="property: opacity; from:0; to:1; delay:9000; dur:1200"></a-text>
-        <a-text value="I am not a rebrand. I am a return" align="center" color="#FFD9A0" width="4" position="0 -0.3 -3"
-                animation="property: opacity; from:0; to:1; delay:9800; dur:1000"></a-text>
-        <a-text value="To the girl who always knew" align="center" color="#FFD9A0" width="3" position="0 -0.7 -2.5"
-                animation="property: opacity; from:0; to:1; delay:10600; dur:1000"></a-text>
-        <a-text value="she didn’t need to be understood to be unforgettable." align="center" color="#FFD9A0" width="4" position="0 -1.1 -3.5"
-                animation="property: opacity; from:0; to:1; delay:11400; dur:1000"></a-text>
-        <a-text value="So if you feel shaken? Good. It means you're awake." align="center" color="#FFD9A0" width="4" position="0 -1.5 -2.8"
-                animation="property: opacity; from:0; to:1; delay:12200; dur:1200"></a-text>
-        <a-text value="And now... I begin." align="center" color="#FFD9A0" width="4" position="0 -1.9 -3"
-                animation="property: opacity; from:0; to:1; delay:13000; dur:1200"></a-text>
-        <!-- "Begin" button to return (optional; the ring is also clickable) -->
+                animation="property: material.opacity; from:0.22; to:0.55; dir:alternate; loop:true; dur:1800"></a-ring>
+        <a-torus position="0 0.12 -3"
+                 radius="1.3" radius-tubular="0.06"
+                 color="#E86ED0"
+                 material="emissive:#E86ED0; emissiveIntensity:0.7; opacity:0.20; transparent:true"
+                 animation="property: rotation; to: 0 360 0; loop: true; dur:10000"></a-torus>
+        <!-- Soft misty "floor" -->
+        <a-circle position="0 0.01 -3" radius="3.5" color="#fff" opacity="0.10"></a-circle>
+
+        <!-- Particle system for sparkle -->
+        <a-entity
+          particle-system="preset: dust; color: #FFD9A0, #E86ED0, #fff; particleCount: 1200; size: 0.12; opacity: 0.3"
+          position="0 1 -3"></a-entity>
+
+        <!-- Glassy mirror pane, gently floating for "reflection" theme -->
+        <a-plane position="2 1.5 -3" width="1.2" height="1.5"
+                 color="#ffffff"
+                 material="opacity:0.12; transparent:true; side:double"
+                 rotation="0 30 0"></a-plane>
+        <a-text value="mirror" align="center" color="#b2b2b2" width="2" position="2 2.42 -3" font="dejavu"></a-text>
+
+        <!-- Animated lyric lines, glowing, fade, and move up/down -->
+        <a-text value="No warnings."
+                align="center" color="#FFD9A0" width="6"
+                position="0 2.9 -3" font="kelsonsans"
+                animation="property: position; to: 0 3.3 -3; dir:alternate; loop:true; dur:2600"
+                animation__fade="property: opacity; from:0; to:1; delay:600; dur:800"></a-text>
+        <a-text value="No countdown."
+                align="center" color="#FFD9A0" width="6"
+                position="-2.1 2.6 -4" font="kelsonsans"
+                animation="property: position; to: -2.1 2.9 -4; dir:alternate; loop:true; dur:2500"
+                animation__fade="property: opacity; from:0; to:1; delay:1400; dur:800"></a-text>
+        <a-text value="No soft opening scene."
+                align="center" color="#FFD9A0" width="6"
+                position="2.1 2.4 -4.5" font="kelsonsans"
+                animation="property: position; to: 2.1 2.7 -4.5; dir:alternate; loop:true; dur:2400"
+                animation__fade="property: opacity; from:0; to:1; delay:2000; dur:800"></a-text>
+        <a-text value="I enter — as I am."
+                align="center" color="#E86ED0" width="6"
+                position="0 2.1 -2.2" font="kelsonsans"
+                animation="property: position; to: 0 2.5 -2.2; dir:alternate; loop:true; dur:2600"
+                animation__fade="property: opacity; from:0; to:1; delay:2600; dur:1000"></a-text>
+        <a-text value="As I’ve always been,"
+                align="center" color="#FFD9A0" width="5"
+                position="0 1.7 -3" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:3400; dur:1000"></a-text>
+        <a-text value="beneath the edits, beneath the silence,"
+                align="center" color="#FFD9A0" width="4"
+                position="0 1.3 -4" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:4200; dur:1000"></a-text>
+        <a-text value="beneath the versions you felt comfortable with."
+                align="center" color="#FFD9A0" width="4"
+                position="0 1.0 -4.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:5000; dur:1000"></a-text>
+        <a-text value="They called me too late, too much, too loud, too soon."
+                align="center" color="#FFD9A0" width="5"
+                position="-2 0.7 -4" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:5800; dur:1200"></a-text>
+        <a-text value="But I was never too anything."
+                align="center" color="#FFD9A0" width="4"
+                position="2 0.4 -4" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:6600; dur:1200"></a-text>
+        <a-text value="You were just too small to receive me."
+                align="center" color="#FFD9A0" width="4"
+                position="0 0.1 -3.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:7400; dur:1200"></a-text>
+        <a-text value="This voice — it was never made to whisper."
+                align="center" color="#E86ED0" width="4"
+                position="-2 0.2 -2.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:8200; dur:1200"></a-text>
+        <a-text value="This walk — was never built to follow."
+                align="center" color="#E86ED0" width="4"
+                position="2 0.2 -2.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:9000; dur:1200"></a-text>
+        <a-text value="I am not a rebrand. I am a return"
+                align="center" color="#FFD9A0" width="4"
+                position="0 -0.3 -3" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:9800; dur:1000"></a-text>
+        <a-text value="To the girl who always knew"
+                align="center" color="#FFD9A0" width="3"
+                position="0 -0.7 -2.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:10600; dur:1000"></a-text>
+        <a-text value="she didn’t need to be understood to be unforgettable."
+                align="center" color="#FFD9A0" width="4"
+                position="0 -1.1 -3.5" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:11400; dur:1000"></a-text>
+        <a-text value="So if you feel shaken? Good. It means you're awake."
+                align="center" color="#FFD9A0" width="4"
+                position="0 -1.5 -2.8" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:12200; dur:1200"></a-text>
+        <a-text value="And now... I begin."
+                align="center" color="#FFD9A0" width="4"
+                position="0 -1.9 -3" font="kelsonsans"
+                animation__fade="property: opacity; from:0; to:1; delay:13000; dur:1200"></a-text>
+        <!-- "Back to Lobby" button -->
         <a-entity position="0 -2.5 -3.5">
           <a-text value="Back to Lobby" align="center" color="#1DB954" width="2" position="0 0.3 0"></a-text>
           <a-plane color="#1DB954" width="1.6" height="0.5" opacity="0.86" position="0 0 0" class="clickable"
@@ -183,7 +247,7 @@
         </a-entity>
       </a-entity>
 
-      <!-- Room 2 and 3: keep as placeholders for now, update later -->
+      <!-- Room 2 and 3: still placeholders, will update later -->
       <a-entity id="room2" visible="false">
         <a-sky color="#2E3B47"></a-sky>
         <a-text value="Mirror Talk (Interlude)\nTrivia: What’s special about this track?" 
