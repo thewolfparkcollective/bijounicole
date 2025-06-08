@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Listening Party – Bijou Nicole</title>
+  <link rel="icon" href="https://fav.farm/🎵" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #3B2E2A;
+      color: #FBEEDB;
+      min-height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    nav {
+      width: 100%;
+      background: rgba(40, 30, 25, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+      display: flex;
+      align-items: center;
+      padding: 0 0.5em;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .nav-brand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4em;
+      padding: 0.6em 1em 0.6em 0.2em;
+      color: #FFD9A0;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+    }
+    nav .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 0.5em;
+    }
+    nav .nav-link {
+      color: #FBEEDB;
+      text-decoration: none;
+      font-size: 1em;
+      line-height: 2.5em;
+      padding: 0 1em;
+      border-radius: 18px 18px 0 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    nav .nav-link.active, nav .nav-link:hover {
+      background: #FFD9A0;
+      color: #322018;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    main.content {
+      z-index: 1;
+      position: relative;
+      padding: 32px 20px;
+      background: rgba(40, 30, 25, 0.6);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.25);
+      margin: 48px auto 16px auto;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      margin-bottom: 0.3em;
+    }
+    .party-details {
+      margin-bottom: 2em;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    .party-embed {
+      margin: 1.5em auto;
+      max-width: 410px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.16);
+      background: rgba(40,30,25,0.88);
+    }
+    .party-chat {
+      margin: 2em auto 0 auto;
+      max-width: 410px;
+      background: rgba(251,238,219,0.11);
+      border-radius: 14px;
+      padding: 1em;
+      color: #FBEEDB;
+    }
+    .party-chat-placeholder {
+      color: #FFD9A0;
+      font-size: 1em;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      nav .nav-brand { font-size: 1em; }
+      .nav-link { font-size: 0.95em; padding: 0 0.5em; }
+      main.content { padding: 16px 4px; }
+      h1 { font-size: 1.6em; }
+      .party-embed, .party-chat { max-width: 95vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="index.html">Bijou Nicole</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="listening-party.html" class="nav-link active">Listening Party</a>
+    </div>
+  </nav>
+  <div class="overlay"></div>
+  <main class="content" role="main">
+    <h1>Virtual Listening Party</h1>
+    <div class="party-details">
+      <p>
+        Join the celebration of Bijou Nicole’s album launch!<br>
+        Stream the album together and connect with fellow fans in real time.
+      </p>
+      <p>
+        <strong>Date:</strong> June 13, 2025<br>
+        <strong>Time:</strong> 8:00 PM EST<br>
+        <strong>Where:</strong> Right here!
+      </p>
+    </div>
+
+    <!-- Streamlabs-powered Twitch Stream Example -->
+    <div class="party-embed">
+      <!-- Replace bijounicole with your Twitch channel name, and bijounicole.com with your domain when live -->
+      <iframe
+        src="https://player.twitch.tv/?channel=bijounicole&parent=localhost"
+        frameborder="0"
+        allowfullscreen="true"
+        scrolling="no"
+        height="315"
+        width="100%">
+      </iframe>
+    </div>
+
+    <!-- Twitch Chat -->
+    <div class="party-chat">
+      <iframe
+        src="https://www.twitch.tv/embed/bijounicole/chat?parent=localhost"
+        frameborder="0"
+        scrolling="no"
+        height="300"
+        width="100%">
+      </iframe>
+    </div>
+
+    <!-- Album Playlist Embed (Spotify Example, replace with your actual album link) -->
+    <div class="party-embed">
+      <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3"
+        width="100%" height="80"
+        frameBorder="0"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+        loading="lazy"></iframe>
+    </div>
+  </main>
+</body>
+</html>
