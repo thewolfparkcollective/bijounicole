@@ -4,10 +4,6 @@ body {
   background: #3B2E2A;
   color: #FBEEDB;
   min-height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1529101091764-c3526daf38fe?auto=format&fit=crop&w=1200&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 nav {
@@ -144,6 +140,7 @@ h2 {
   color: #FFD9A0;
 }
 
+/* Quiz Modal Styles */
 #quiz-modal {
   display: none;
   position: fixed;
