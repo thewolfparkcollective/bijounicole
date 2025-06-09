@@ -46,6 +46,50 @@
       margin-top: 0.2em;
       letter-spacing: 1px;
     }
+    .progress-bar-container {
+      width: 90%;
+      max-width: 500px;
+      background: #322018;
+      border-radius: 25px;
+      height: 32px;
+      margin: 2em auto 0 auto;
+      box-shadow: 0 2px 10px #0004;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD9A0 0%, #C7BAD4 100%);
+      border-radius: 25px 0 0 25px;
+      transition: width 1s cubic-bezier(.4,2.3,.3,1);
+      text-align: right;
+      padding-right: 1.2em;
+      font-size: 1.2em;
+      color: #322018;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .notify-btn {
+      display: inline-block;
+      margin-top: 3em;
+      background: linear-gradient(90deg, #FFD9A0 0%, #C7BAD4 100%);
+      color: #322018;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 0.7em 2em;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 2px 10px #0002;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      cursor: pointer;
+    }
+    .notify-btn:hover {
+      background: linear-gradient(90deg, #C7BAD4 0%, #FFD9A0 100%);
+      color: #1a1024;
+      transform: scale(1.03);
+    }
     nav {
       width: 100vw;
       background: rgba(40, 30, 25, 0.95);
@@ -87,6 +131,9 @@
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       .countdown { font-size: 1.2em; gap: 1em; }
+      .progress-bar-container { height: 22px; }
+      .progress-bar { font-size: 1em; padding-right: 0.5em; }
+      .notify-btn { font-size: 1em; padding: 0.6em 1.3em; }
     }
   </style>
 </head>
@@ -120,10 +167,16 @@
         <span class="countdown-label">Seconds</span>
       </div>
     </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar">0%</div>
+    </div>
     <div id="countdown-message" style="margin-top:2em; color:#FFD9A0; font-size:1.2em;"></div>
+    <a href="https://laylo.com/bijounicole" class="notify-btn" target="_blank" rel="noopener">Notify Me</a>
   </div>
   <script>
-    // Set the target date
+    // Countdown and progress bar logic
+    // Set the start and target dates
+    const startDate = new Date('2024-06-13T00:00:00Z').getTime(); // Example: set as one year before release
     const targetDate = new Date('2025-06-13T00:00:00Z').getTime();
 
     function updateCountdown() {
@@ -132,6 +185,8 @@
 
       if (distance <= 0) {
         document.getElementById('countdown').style.display = 'none';
+        document.getElementById('progress-bar').style.width = '100%';
+        document.getElementById('progress-bar').textContent = '100%';
         document.getElementById('countdown-message').textContent = "It's here!";
         return;
       }
@@ -145,6 +200,13 @@
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
+
+      // Progress Bar Calculation
+      let total = targetDate - startDate;
+      let elapsed = now - startDate;
+      let percent = Math.max(0, Math.min(100, Math.round((elapsed / total) * 100)));
+      document.getElementById('progress-bar').style.width = percent + '%';
+      document.getElementById('progress-bar').textContent = percent + '%';
     }
 
     updateCountdown();
