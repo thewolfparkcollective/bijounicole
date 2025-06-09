@@ -27,6 +27,20 @@
       align-items: center;
       margin-top: 3em;
     }
+    .candle-container {
+      width: 120px;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 2em;
+    }
+    .candle-svg {
+      width: 100px;
+      height: 250px;
+      display: block;
+    }
     .countdown {
       display: flex;
       gap: 2em;
@@ -45,30 +59,6 @@
       color: #C7BAD4;
       margin-top: 0.2em;
       letter-spacing: 1px;
-    }
-    .progress-bar-container {
-      width: 90%;
-      max-width: 500px;
-      background: #322018;
-      border-radius: 25px;
-      height: 32px;
-      margin: 2em auto 0 auto;
-      box-shadow: 0 2px 10px #0004;
-      overflow: hidden;
-    }
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #FFD9A0 0%, #C7BAD4 100%);
-      border-radius: 25px 0 0 25px;
-      transition: width 1s cubic-bezier(.4,2.3,.3,1);
-      text-align: right;
-      padding-right: 1.2em;
-      font-size: 1.2em;
-      color: #322018;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
     }
     .notify-btn {
       display: inline-block;
@@ -131,8 +121,8 @@
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       .countdown { font-size: 1.2em; gap: 1em; }
-      .progress-bar-container { height: 22px; }
-      .progress-bar { font-size: 1em; padding-right: 0.5em; }
+      .candle-container { height: 180px; width: 80px; }
+      .candle-svg { width: 65px; height: 140px; }
       .notify-btn { font-size: 1em; padding: 0.6em 1.3em; }
     }
   </style>
@@ -149,6 +139,21 @@
   </nav>
   <h1>I'm Not Explaining Myself Again</h1>
   <div class="countdown-container">
+    <div class="candle-container">
+      <svg class="candle-svg" viewBox="0 0 60 160">
+        <!-- Candle body -->
+        <rect id="candle-wax" x="18" y="40" width="24" height="100" rx="10" fill="#FFD9A0" stroke="#C7BAD4" stroke-width="2"/>
+        <!-- Candle top (melt effect) -->
+        <ellipse id="candle-top" cx="30" cy="40" rx="12" ry="7" fill="#FFD9A0" stroke="#C7BAD4" stroke-width="2"/>
+        <!-- Flame -->
+        <g id="flame-group">
+          <ellipse id="flame" cx="30" cy="29" rx="7" ry="13" fill="gold" opacity="0.82"/>
+          <ellipse cx="30" cy="33" rx="4" ry="7" fill="#ffe066" opacity="0.9"/>
+        </g>
+        <!-- Wick -->
+        <rect id="wick" x="28.5" y="36" width="3" height="10" rx="1.2" fill="#7d4927"/>
+      </svg>
+    </div>
     <div class="countdown" id="countdown">
       <div class="countdown-section">
         <span id="days">0</span>
@@ -167,26 +172,58 @@
         <span class="countdown-label">Seconds</span>
       </div>
     </div>
-    <div class="progress-bar-container">
-      <div class="progress-bar" id="progress-bar">0%</div>
-    </div>
     <div id="countdown-message" style="margin-top:2em; color:#FFD9A0; font-size:1.2em;"></div>
     <a href="https://laylo.com/bijounicole" class="notify-btn" target="_blank" rel="noopener">Notify Me</a>
   </div>
   <script>
-    // Countdown and progress bar logic
+    // Candle melt and countdown logic
     // Set the start and target dates
-    const startDate = new Date('2024-06-13T00:00:00Z').getTime(); // Example: set as one year before release
+    const startDate = new Date('2025-06-09T00:00:00Z').getTime(); // today
     const targetDate = new Date('2025-06-13T00:00:00Z').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
+      // Candle melt percent
+      const total = targetDate - startDate;
+      let elapsed = now - startDate;
+      let percent = Math.max(0, Math.min(1, elapsed / total));
+
+      // Candle wax height melt: from 100 to 10 px (SVG units)
+      const waxMin = 10, waxMax = 100;
+      const waxHeight = waxMax - (waxMax - waxMin) * percent;
+      const waxY = 40 + (waxMax - waxHeight);
+
+      const waxRect = document.getElementById("candle-wax");
+      const candleTop = document.getElementById("candle-top");
+      if (waxRect && candleTop) {
+        waxRect.setAttribute("y", waxY);
+        waxRect.setAttribute("height", waxHeight);
+        candleTop.setAttribute("cy", waxY);
+      }
+
+      // Flame shrink: from r=13 to r=4
+      const flame = document.getElementById("flame");
+      if (flame) {
+        flame.setAttribute("ry", 13 - 9 * percent);
+        flame.setAttribute("opacity", 0.82 - 0.7 * percent);
+      }
+
+      // Hide flame and wick if candle is melted
+      const flameGroup = document.getElementById("flame-group");
+      const wick = document.getElementById("wick");
+      if (percent >= 1) {
+        if (flameGroup) flameGroup.style.opacity = 0;
+        if (wick) wick.style.opacity = 0;
+      } else {
+        if (flameGroup) flameGroup.style.opacity = 1;
+        if (wick) wick.style.opacity = 1;
+      }
+
+      // Countdown UI
       if (distance <= 0) {
         document.getElementById('countdown').style.display = 'none';
-        document.getElementById('progress-bar').style.width = '100%';
-        document.getElementById('progress-bar').textContent = '100%';
         document.getElementById('countdown-message').textContent = "It's here!";
         return;
       }
@@ -200,13 +237,6 @@
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
-
-      // Progress Bar Calculation
-      let total = targetDate - startDate;
-      let elapsed = now - startDate;
-      let percent = Math.max(0, Math.min(100, Math.round((elapsed / total) * 100)));
-      document.getElementById('progress-bar').style.width = percent + '%';
-      document.getElementById('progress-bar').textContent = percent + '%';
     }
 
     updateCountdown();
