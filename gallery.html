@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bijou Nicole Gallery</title>
+  <meta name="description" content="2D Gallery of Bijou Nicole">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #1a1024;
+      color: #FBEEDB;
+      margin: 0;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2.5em;
+      color: #FFD9A0;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.4em;
+      letter-spacing: 1.5px;
+    }
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2em;
+      max-width: 1200px;
+      margin: 3em auto;
+      padding: 0 1em;
+    }
+    .gallery-item {
+      background: #2a1834;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(59,46,42,0.18);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 1em;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(59,46,42,0.25);
+    }
+    .gallery-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      text-align: center;
+      color: #FFD9A0;
+      margin: 1em 0 0 0;
+      font-size: 1.07em;
+      padding: 0 1em;
+    }
+    .gallery-lyrics {
+      color: #C7BAD4;
+      font-size: 0.97em;
+      margin: 0.4em 0 0 0;
+      padding: 0 1em;
+      text-align: center;
+    }
+    nav {
+      width: 100vw;
+      background: rgba(40, 30, 25, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+      display: flex;
+      align-items: center;
+      padding: 0 0.5em;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    nav .nav-brand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4em;
+      padding: 0.6em 1em 0.6em 0.2em;
+      color: #FFD9A0;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+    }
+    nav .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 0.5em;
+    }
+    nav .nav-link {
+      color: #FBEEDB;
+      text-decoration: none;
+      font-size: 1em;
+      line-height: 2.5em;
+      padding: 0 1em;
+      border-radius: 18px 18px 0 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    nav .nav-link.active, nav .nav-link:hover {
+      background: #FFD9A0;
+      color: #322018;
+    }
+    @media (max-width: 700px) {
+      .gallery-container {
+        grid-template-columns: 1fr;
+        gap: 1.2em;
+      }
+      h1 { font-size: 1.5em; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="index.html">Bijou Nicole</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="listening-party.html" class="nav-link">Listening Party</a>
+      <a href="gallery.html" class="nav-link active">Gallery</a>
+      <a href="https://sndo.ffm.to/krbq6mk" class="nav-link" target="_blank" rel="noopener">Pre-save</a>
+    </div>
+  </nav>
+  <h1>Bijou Nicole Gallery</h1>
+  <div class="gallery-container">
+    <div class="gallery-item">
+      <img src="your-album-cover.jpg" alt="Album Cover" class="gallery-image">
+      <div class="gallery-caption">Debut Album Cover</div>
+      <div class="gallery-lyrics">"Sample lyric from the album goes here..."</div>
+    </div>
+    <div class="gallery-item">
+      <img src="studio-photo.jpg" alt="In the Studio" class="gallery-image">
+      <div class="gallery-caption">Recording the album, summer nights in the studio</div>
+      <div class="gallery-lyrics">"Another lyric, or quote, or fun fact."</div>
+    </div>
+    <div class="gallery-item">
+      <img src="live-performance.jpg" alt="Live Performance" class="gallery-image">
+      <div class="gallery-caption">First live performance of "Hit Single"</div>
+      <div class="gallery-lyrics">"Live and in color, hearts beat together..."</div>
+    </div>
+    <!-- Add more items here -->
+  </div>
+</body>
+</html>
