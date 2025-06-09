@@ -118,12 +118,47 @@
       background: #FFD9A0;
       color: #322018;
     }
+    #music-toggle {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 9999;
+      background: linear-gradient(90deg, #FFD9A0 0%, #C7BAD4 100%);
+      color: #322018;
+      border: none;
+      border-radius: 50%;
+      width: 58px;
+      height: 58px;
+      box-shadow: 0 2px 8px #0005;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      transition: background 0.2s, transform 0.1s;
+      outline: none;
+    }
+    #music-toggle:hover, #music-toggle:focus {
+      background: linear-gradient(90deg, #C7BAD4 0%, #FFD9A0 100%);
+      transform: scale(1.05);
+    }
+    #music-icon {
+      pointer-events: none;
+      user-select: none;
+    }
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       .countdown { font-size: 1.2em; gap: 1em; }
       .candle-container { height: 180px; width: 80px; }
       .candle-svg { width: 65px; height: 140px; }
       .notify-btn { font-size: 1em; padding: 0.6em 1.3em; }
+      #music-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+        right: 12px;
+        bottom: 12px;
+      }
     }
   </style>
 </head>
@@ -175,6 +210,10 @@
     <div id="countdown-message" style="margin-top:2em; color:#FFD9A0; font-size:1.2em;"></div>
     <a href="https://laylo.com/bijounicole" class="notify-btn" target="_blank" rel="noopener">Notify Me</a>
   </div>
+  <audio id="bg-music" src="https://drive.google.com/uc?export=download&id=1wkgcOXVazGSr2UeCd7CTNYrDPojUggix" autoplay loop></audio>
+  <button id="music-toggle" aria-label="Toggle music" title="Toggle music">
+    <span id="music-icon">⏸️</span>
+  </button>
   <script>
     // Candle melt and countdown logic
     // Set the start and target dates
@@ -241,6 +280,51 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // Music toggle logic
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+    const icon = document.getElementById('music-icon');
+    let isPlaying = true;
+
+    function playMusic() {
+      music.volume = 0.7;
+      music.play();
+      icon.textContent = '⏸️';
+      isPlaying = true;
+    }
+    function pauseMusic() {
+      music.pause();
+      icon.textContent = '▶️';
+      isPlaying = false;
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
+      }
+    });
+
+    // Handle autoplay policy (may need user interaction)
+    music.addEventListener('play', () => {
+      icon.textContent = '⏸️';
+      isPlaying = true;
+    });
+    music.addEventListener('pause', () => {
+      icon.textContent = '▶️';
+      isPlaying = false;
+    });
+
+    // Try to play automatically, but if blocked, show play icon
+    document.addEventListener('DOMContentLoaded', () => {
+      music.volume = 0.7;
+      music.play().catch(() => {
+        icon.textContent = '▶️';
+        isPlaying = false;
+      });
+    });
   </script>
 </body>
 </html>
