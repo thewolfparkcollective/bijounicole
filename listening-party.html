@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Bijou Nicole Listening Party</title>
-  <meta name="description" content="Virtual Streaming Party">
+  <meta name="description" content="Audio Listening Party with Chat">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -21,23 +21,31 @@
       font-size: 2.5em;
       letter-spacing: 1.5px;
     }
-    .stream-container {
+    .audio-chat-container {
       display: flex;
       justify-content: center;
       gap: 2em;
-      margin: 2em 0;
+      margin: 3em 0;
       flex-wrap: wrap;
     }
-    .stream-container iframe {
-      border: 2px solid #FFD9A0;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(59,46,42,0.16);
+    .audio-player-box {
+      background: #2a1834;
+      border-radius: 16px;
+      padding: 2em 2em 1em 2em;
+      box-shadow: 0 4px 14px rgba(59,46,42,0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 350px;
+      max-width: 420px;
     }
-    @media (max-width: 1200px) {
-      .stream-container {
-        flex-direction: column;
-        align-items: center;
-      }
+    .chat-box {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(59,46,42,0.18);
+      min-width: 350px;
+      max-width: 420px;
+      background: #2a1834;
     }
     .info-text {
       text-align: center;
@@ -83,6 +91,12 @@
       background: #FFD9A0;
       color: #322018;
     }
+    @media (max-width: 900px) {
+      .audio-chat-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -97,22 +111,23 @@
   </nav>
   <h1>Bijou Nicole Listening Party</h1>
   <div class="info-text">
-    Watch the live party below!<br>
-    Join the Twitch chat to interact during the stream.<br>
-    <b>Channel:</b> <a href="https://www.twitch.tv/rooseveltwooden" style="color:#FFD9A0;" target="_blank">Roosevelt Wooden</a>
+    Press play to listen and chat with us live below!<br>
+    <b>Tip:</b> You’ll need a Spotify account to listen in full. Free accounts are supported!
   </div>
-  <div class="stream-container">
-    <iframe
-      src="https://player.twitch.tv/?channel=rooseveltwooden&parent=localhost"
-      height="420"
-      width="740"
-      allowfullscreen>
-    </iframe>
-    <iframe
-      src="https://www.twitch.tv/embed/rooseveltwooden/chat?parent=localhost"
-      height="420"
-      width="350">
-    </iframe>
+  <div class="audio-chat-container">
+    <div class="audio-player-box">
+      <div style="font-size:1.2em; color:#FFD9A0; text-align:center;">Now Playing via Spotify:</div>
+      <div style="font-weight:700; font-size:1em; margin:0.3em 0 1em 0; color:#FBEEDB;">Your Song / Album / Playlist Title</div>
+      <!-- Replace the src below with your Spotify embed link -->
+      <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3?utm_source=generator"
+        width="100%" height="152" frameborder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"></iframe>
+    </div>
+    <div class="chat-box">
+      <iframe src="https://tlk.io/bijounicole" width="100%" height="480" frameborder="0"></iframe>
+    </div>
   </div>
 </body>
 </html>
