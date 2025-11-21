@@ -62,32 +62,34 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${gradient} text-white transition-colors`}>
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 md:py-10">
-        <header className="flex items-center justify-between">
+    <div className={`app-shell min-h-screen bg-gradient-to-br ${gradient} text-white`}>
+      <div className="layer-content mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 md:py-12">
+        <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm text-white/80">Weather Vibes</p>
-            <h1 className="text-3xl font-black leading-tight">Modern forecast dashboard</h1>
+            <p className="chip text-xs">Weather Vibes</p>
+            <h1 className="mt-2 text-4xl font-black leading-tight">A sleek forecast for your day</h1>
+            <p className="mt-1 max-w-2xl text-white/80">Auto-location, fast city search, vibe-based tips, and alerts—all wrapped in a modern, extensible UI.</p>
           </div>
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="rounded-full bg-white/20 px-3 py-1 text-sm font-semibold text-white hover:bg-white/30"
+            className="self-start rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition hover:border-white/40 hover:bg-white/20"
           >
-            {theme === 'dark' ? 'Light' : 'Dark'} mode
+            {theme === 'dark' ? 'Switch to light' : 'Switch to dark'} mode
           </button>
         </header>
 
-        <HeaderSearch
-          onSearch={handleSearch}
-          onUseLocation={handleUseLocation}
-          onAddFavorite={handleAddFavorite}
-          activeLocation={data?.location}
-        />
-
-        <FavoritesBar favorites={favorites} onSelect={onSelectFavorite} onRemove={removeFavorite} />
+        <div className="glass-panel p-4 md:p-6">
+          <HeaderSearch
+            onSearch={handleSearch}
+            onUseLocation={handleUseLocation}
+            onAddFavorite={handleAddFavorite}
+            activeLocation={data?.location}
+          />
+          <FavoritesBar favorites={favorites} onSelect={onSelectFavorite} onRemove={removeFavorite} />
+        </div>
 
         {loading && <LoadingBlock />}
-        {error && <div className="rounded-xl bg-rose-500/40 p-4 text-sm">{error}</div>}
+        {error && <div className="rounded-2xl bg-rose-500/40 p-4 text-sm shadow-lg">{error}</div>}
 
         {data && (
           <>

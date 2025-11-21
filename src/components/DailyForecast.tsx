@@ -1,34 +1,39 @@
 import { DailyForecastItem } from '../types/weather';
+import { WeatherIcon } from './WeatherIcon';
 
 interface Props {
   items: DailyForecastItem[];
 }
 
-const formatDay = (timestamp: number) => new Date(timestamp).toLocaleDateString(undefined, { weekday: 'short' });
-
 export function DailyForecast({ items }: Props) {
   return (
-    <div className="card-surface p-4">
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">7-day outlook</h3>
-        <p className="text-sm text-slate-500 dark:text-slate-300">Plan ahead</p>
+    <section className="card-surface p-5 text-slate-900 dark:text-slate-100">
+      <div className="flex items-center justify-between">
+        <p className="section-title">Next 7-10 days</p>
+        <p className="text-sm text-slate-500 dark:text-slate-300">Plan ahead with highs/lows</p>
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {items.map(item => (
-          <div key={item.timestamp} className="flex items-center justify-between rounded-xl bg-white/60 px-4 py-3 text-slate-900 shadow-card dark:bg-slate-800/70 dark:text-slate-100">
-            <div className="flex items-center gap-3">
-              <img src={`https://openweathermap.org/img/wn/${item.icon}.png`} alt={item.description} className="h-10 w-10" />
-              <div>
-                <p className="text-sm text-slate-600 dark:text-slate-300">{formatDay(item.timestamp)}</p>
-                <p className="text-base capitalize">{item.description}</p>
-              </div>
+          <div
+            key={item.timestamp}
+            className="flex items-center justify-between rounded-2xl border border-slate-200/40 bg-white/70 px-4 py-3 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70"
+          >
+            <div>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-200">
+                {new Date(item.timestamp).toLocaleDateString(undefined, { weekday: 'short' })}
+              </p>
+              <p className="text-xs capitalize text-slate-500 dark:text-slate-300">{item.description}</p>
             </div>
-            <div className="text-right text-sm font-semibold">
-              <p>{Math.round(item.temp.max)}° / {Math.round(item.temp.min)}°</p>
+            <div className="flex items-center gap-3">
+              <WeatherIcon icon={item.icon} alt={item.description} size={42} />
+              <div className="text-right text-sm font-semibold text-slate-700 dark:text-slate-100">
+                <p>High {Math.round(item.temp.max)}°</p>
+                <p className="text-slate-500 dark:text-slate-300">Low {Math.round(item.temp.min)}°</p>
+              </div>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

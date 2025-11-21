@@ -1,27 +1,34 @@
 import { HourlyForecastItem } from '../types/weather';
+import { WeatherIcon } from './WeatherIcon';
 
 interface Props {
   items: HourlyForecastItem[];
 }
 
-const formatHour = (timestamp: number) => new Date(timestamp).toLocaleTimeString([], { hour: 'numeric' });
-
 export function HourlyForecast({ items }: Props) {
   return (
-    <div className="card-surface p-4">
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Next hours</h3>
-        <p className="text-sm text-slate-500 dark:text-slate-300">Swipe to explore</p>
+    <section className="card-surface p-5 text-slate-900 dark:text-slate-100">
+      <div className="flex items-center justify-between">
+        <p className="section-title">Next hours</p>
+        <p className="text-sm text-slate-500 dark:text-slate-300">Stay ahead of quick shifts</p>
       </div>
-      <div className="gradient-mask flex gap-3 overflow-x-auto pb-2">
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6">
         {items.map(item => (
-          <div key={item.timestamp} className="min-w-[90px] rounded-xl bg-white/60 p-3 text-center text-slate-900 shadow-card dark:bg-slate-800/70 dark:text-slate-100">
-            <p className="text-sm text-slate-600 dark:text-slate-300">{formatHour(item.timestamp)}</p>
-            <img src={`https://openweathermap.org/img/wn/${item.icon}@2x.png`} alt={item.description} className="mx-auto h-12 w-12" />
-            <p className="text-lg font-semibold">{Math.round(item.temp)}°</p>
+          <div
+            key={item.timestamp}
+            className="rounded-2xl border border-slate-200/40 bg-white/70 p-3 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70"
+          >
+            <p className="text-sm font-semibold text-slate-600 dark:text-slate-200">
+              {new Date(item.timestamp).toLocaleTimeString([], { hour: 'numeric' })}
+            </p>
+            <div className="my-2 flex justify-center">
+              <WeatherIcon icon={item.icon} alt={item.description} size={48} />
+            </div>
+            <p className="text-lg font-bold text-slate-900 dark:text-white">{Math.round(item.temp)}°</p>
+            <p className="text-xs capitalize text-slate-500 dark:text-slate-300">{item.description}</p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
