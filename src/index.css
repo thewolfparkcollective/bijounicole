@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: theme('fontFamily.body');
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 30%),
+    #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+.glass-panel {
+  @apply bg-white/10 dark:bg-slate-900/60 backdrop-blur-lg shadow-card border border-white/10 rounded-3xl;
+}
+
+.card-surface {
+  @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border border-white/20 rounded-2xl shadow-card;
+}
+
+.gradient-mask {
+  mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+}
